@@ -1,0 +1,56 @@
+<div class="container mt-5">
+  <!-- <div class="form-group">
+    <input type="text" class="form-control" [(ngModel)]="text">
+    <span>
+      {{text | toxicity | async }}
+    </span>
+  </div> -->
+
+  <h1>Image Upload</h1>
+
+  <form [formGroup]="form" (reset)="reset()" (ngSubmit)="onSubmit()">
+    <ng-container *ngIf="fileUpload.status === 'progress'">
+      <div class="progress" style="height: 20px;margin-bottom: 20px;">
+          <div class="progress-bar"
+              role="progressbar"
+              [style.width.%]="fileUpload.message"
+              aria-valuenow="25"
+              aria-valuemin="0"
+              aria-valuemax="100"
+          >
+          {{fileUpload.message}}%
+          </div>
+      </div>
+
+</ng-container>
+    <div class="form-group">
+      <input type="file" formControlName="thumbnail" class="form-control" (change)="onChange($event)">
+    </div>
+
+    <div class="form-group mt-2">
+      <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Upload</button>
+      <button class="btn btn-danger" type="reset" >Clear</button>
+    </div>
+  </form>
+
+    <ng-container *ngIf="fileName">
+      <img [src]="fileName" alt="image loading">
+    </ng-container>
+
+</div>
+
+<!-- <div class="container mt-5">
+  <input type="file" class="file-input"
+  (change)="onChange($event)" #fileUpload>
+
+<div class="file-upload form-group">
+
+{{fileName || "No file uploaded yet."}}
+
+<button mat-mini-fab color="primary" class="upload-btn"
+ (click)="fileUpload.click()">
+   <mat-icon>attach_file</mat-icon>
+</button>
+</div>
+
+</div> -->

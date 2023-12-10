@@ -1,0 +1,30 @@
+
+<div class="container mt-2 mb-5">
+  <div *ngIf="!token" class="float-right">
+    <button mat-raised-button routerLink="/login" color="primary" type="submit">Login</button>
+  <!-- <button class="btn btn-primary" routerLink="/login">Login</button> -->
+</div>
+<div *ngIf="token">
+  <button mat-raised-button (click)="logout()" color="warn" type="submit">Logout</button>
+  <!-- <button class="btn btn-danger" (click)="logout()">Logout</button> -->
+</div>
+
+</div>
+<div class="container" *ngIf="token">
+  <app-upload></app-upload>
+  <button mat-raised-button class="mt-2 mb-2"  (click)="onClick()" color="primary" type="submit">{{showForm?"Add New Product" : "Hide Form"}}</button>
+
+  <!-- <button (click)="onClick()" class="btn btn-warning mt-2 mb-2" >
+      {{showForm?"Add New Product" : "Hide Form"}}
+  </button> -->
+</div>
+
+<app-forms *ngIf="visible" [allProduct]="allProduct" [productList]="productList" class="mt-2 mb-2"></app-forms>
+
+<app-search [allProduct]="allProduct" (getSearchItem)="getSearchItem($event)" class="mt-2 mb-2"></app-search>
+<app-category [allProduct]="allProduct" (getCategoryItem)="getCategoryItem($event)" class="mt-2 mb-2"></app-category>
+
+<!-- <app-single-product [singleProduct]="singleProduct" [allProduct]="allProduct" ></app-single-product> -->
+
+<app-table (getDataFromTable)="getDataFromTable($event)" [allProduct]="allProduct" (getSingleProductFC)="getSingleProduct($event)"  (getDataFromTableFiltered)="getDataFromTableFiltered($event)" ></app-table>
+

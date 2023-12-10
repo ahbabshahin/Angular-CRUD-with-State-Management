@@ -1,0 +1,15 @@
+<app-loader-spinner *ngIf="(showLoading | async)"></app-loader-spinner>
+<div class="container">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <ng-container *ngIf="show">
+        <div class="alert alert-danger" *ngIf="errorMessage | async">{{errorMessage | async}}</div>
+
+      </ng-container>
+
+
+    </div>
+  </div>
+</div>
+<router-outlet ></router-outlet>
+

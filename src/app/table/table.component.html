@@ -1,0 +1,156 @@
+<div class="container">
+  <!-- <div class="form-group">
+    <input
+      type="search"
+      [(ngModel)]="searchText"
+      class="form-control"
+      placeholder="Search"
+      (input)="search()"
+    />
+  </div> -->
+  <!-- <app-search [allProduct]="allProduct" (getSearchItem)="getSearchItem($event)" ></app-search> -->
+  <!-- <div class="form-group">
+    <select class="custom-select" [(ngModel)]="categor" (ngModelChange)="getProduct()">
+      <option *ngFor="let cat of category" [value]="cat" selected>
+        {{ cat }}
+      </option>
+    </select>
+  </div> -->
+  <!-- <app-category [allProduct]="allProduct" (getCategoryItem)="getCategoryItem($event)"></app-category> -->
+</div>
+
+<!-- <div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Description</th>
+        <th scope="col">Price</th>
+        <th scope="col">Discount Percentage</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Stock</th>
+        <th scope="col">Brand</th>
+        <th scope="col">Category</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <div *ngIf="notFound" class="container">
+      <h2>{{notFound}}</h2>
+    </div>
+    <tbody *ngIf="!notFound">
+      <tr
+        *ngFor="
+          let data of paginatedData
+          let i = index
+        "
+      >
+        <th scope="row">{{ data.id }}</th>
+        <td>{{ data.title }}</td>
+        <td>{{ data.description }}</td>
+        <td>{{ data.price }}</td>
+        <td>{{ data.discountPercentage }}</td>
+        <td>{{ data.rating }}</td>
+        <td>{{ data.stock }}</td>
+        <td>{{ data.brand }}</td>
+        <td>{{ data.category }}</td>
+        <td>
+          <button class="btn btn-warning" (click)="view(data.id)">View</button>
+          <div *ngIf="token">
+          <button class="btn btn-success" (click)="edit(data)">Edit</button>
+          <button class="btn btn-danger" (click)="delete(data.id)">
+            Delete
+          </button>
+        </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <app-pagination
+  [currentPage]="currentPage"
+  [limit]="limit"
+  [total]="total"
+  (changePage)="changePage($event)"
+  ></app-pagination>
+</div> -->
+
+<div class="container">
+  <table
+    mat-table
+    [dataSource]="paginatedData"
+    class="mt-2 mat-elevation-z8 demo-table"
+  >
+    <ng-container>
+      <!-- Position Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>No.</th>
+        <td mat-cell *matCellDef="let element">{{ element.id }}</td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="title">
+        <th mat-header-cell *matHeaderCellDef>Title</th>
+        <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Description</th>
+        <td mat-cell *matCellDef="let element">{{ element.description }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="price">
+        <th mat-header-cell *matHeaderCellDef>Price</th>
+        <td mat-cell *matCellDef="let element">{{ element.price }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="discountPercentage">
+        <th mat-header-cell *matHeaderCellDef>Discount Percentage</th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.discountPercentage }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="rating">
+        <th mat-header-cell *matHeaderCellDef>Rating</th>
+        <td mat-cell *matCellDef="let element">{{ element.rating }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="stock">
+        <th mat-header-cell *matHeaderCellDef>Stock</th>
+        <td mat-cell *matCellDef="let element">{{ element.stock }}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="brand">
+        <th mat-header-cell *matHeaderCellDef>Brand</th>
+        <td mat-cell *matCellDef="let element">{{ element.brand }}</td>
+      </ng-container>
+      <ng-container matColumnDef="category">
+        <th mat-header-cell *matHeaderCellDef>Category</th>
+        <td mat-cell *matCellDef="let element">{{ element.category }}</td>
+      </ng-container>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef>Actions</th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon (click)="view(element.id)" color="basic">visibility</mat-icon>
+        <mat-icon (click)="edit(element)" color="primary">edit</mat-icon>
+        <mat-icon class="mat-18" (click)="delete(element.id)" color="warn"
+          >delete_forever</mat-icon
+        >
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <app-pagination
+    [currentPage]="currentPage"
+    [limit]="limit"
+    [total]="total"
+    (changePage)="changePage($event)"
+  ></app-pagination>
+</div>

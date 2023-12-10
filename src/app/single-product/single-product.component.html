@@ -1,0 +1,15 @@
+<!--*ngIf="closes === false || check()" -->
+<!-- *ngIf="check();" -->
+<div >
+<div class="container card mt-2" style="width: 18rem;"  >
+  <ul class="list-group list-group-flush" *ngIf="product">
+    <li class="list-group-item">{{product.id}}</li>
+    <li class="list-group-item">{{product.title}}</li>
+    <li class="list-group-item">{{product.brand}}</li>
+    <li class="list-group-item">{{product.price}}</li>
+    <li class="list-group-item"><button class="btn btn-warning" (click)="close()">Go Back</button></li>
+  </ul>
+</div>
+</div>
+
+<!-- <h1>Hello</h1> -->

@@ -1,0 +1,21 @@
+ <div class="container">
+  <!-- <div class="form-group"> -->
+    <!-- <select class="custom-select form-control" [(ngModel)]="categor" (ngModelChange)="getProduct()">
+      <option value="none">None</option>
+      <option *ngFor="let cat of category">
+        {{ cat }}
+      </option>
+    </select> -->
+  <!-- </div> -->
+
+  <div class="row">
+    <mat-form-field appearance="outline">
+      <mat-select  [(ngModel)]="categor" (ngModelChange)="getProduct()">
+        <mat-option value="none">None</mat-option>
+        <mat-option *ngFor="let cat of category" [value]="cat">{{cat}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+
+ </div>

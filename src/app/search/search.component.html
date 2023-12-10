@@ -1,0 +1,23 @@
+<div class="container">
+  <!-- <div class="form-group">
+    <input
+      type="search"
+      [(ngModel)]="searchText"
+      class="form-control"
+      placeholder="Search"
+      (input)="search()"
+    />
+  </div> -->
+
+  <div class="row">
+    <mat-form-field appearance="outline" class="example-full-width">
+      <input matInput
+      type="search"
+      [(ngModel)]="searchText"
+      class="form-control"
+      placeholder="Search"
+      (input)="search()">
+    </mat-form-field>
+  </div>
+
+</div>

@@ -1,0 +1,236 @@
+<div class="container mt-2 mb-5">
+  <h3 class="mx-auto">Form</h3>
+
+  <form [formGroup]="form" (reset)="reset()" (ngSubmit)="onSubmit($event)">
+    <div class="form-group">
+      <app-input-field
+        [label]="'Title'"
+        [control]="form.controls['title']"
+        [type]="'text'"
+        [placeholder]="'iPhone 9'"
+        [validation]="title"
+        [name]="'title'"
+        id="title"
+        [validationStructure]="validationStructure.title"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <app-input-field
+        [label]="'Description'"
+        [control]="form.controls['description']"
+        [type]="'text'"
+        [placeholder]="'Lorem ipsum dolor sit amet, consectetuer adipiscin'"
+        [validation]="description"
+        [name]="'description'"
+        id="description"
+        [validationStructure]="validationStructure.description"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <app-input-field
+        [label]="'Price'"
+        [control]="form.controls['price']"
+        [type]="'number'"
+        [placeholder]="5"
+        [validation]="price"
+        [name]="'price'"
+        id="price"
+        [validationStructure]="validationStructure.price"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <app-input-field
+        [label]="'Discount Percentage'"
+        [control]="form.controls['discountPercentage']"
+        [type]="'number'"
+        [placeholder]="'2.0'"
+        [validation]="discountPercentage"
+        [name]="'discountPercentage'"
+        id="discountPercentage"
+        [validationStructure]="validationStructure.discountPercentage"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <label for="exampleInputEmail1">Rating</label>
+      <!-- <ngb-rating [max]="5" formControlName="rating"></ngb-rating> -->
+      <mat-icon
+        class="mat-18"
+        *ngFor="let icon of ratings; let i = index"
+        (mouseenter)="handleMouseEnter(i)"
+        (mouseleave)="handleMouseLeave()"
+        (click)="rating(i)"
+        [ngClass]="{ checked: selectedStar > i }"
+      >
+        star
+      </mat-icon>
+
+      <div *ngIf="rate?.invalid">
+        <div *ngIf="rate?.errors?.['required']">
+          <span class="text-danger">Rating is required</span>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <app-input-field
+        [label]="'Stock'"
+        [control]="form.controls['stock']"
+        [type]="'number'"
+        [placeholder]="94"
+        [validation]="stock"
+        [name]="'stock'"
+        id="stock"
+        [validationStructure]="validationStructure.stock"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <app-input-field
+        [label]="'Brand'"
+        [control]="form.controls['brand']"
+        [type]="'text'"
+        [placeholder]="'Lorem ipsum dolor sit amet, consectetuer adipiscin'"
+        [validation]="brand"
+        [name]="'brand'"
+        id="brand"
+        [validationStructure]="validationStructure.brand"
+      ></app-input-field>
+    </div>
+
+    <div class="form-group">
+      <app-select-field
+        [label]="'Category'"
+        [control]="form.controls['category']"
+        [categorys]="categorys"
+        [validation]="category"
+        [validationStructure]="validationStructure.category"
+      ></app-select-field>
+    </div>
+
+    <div class="form-group">
+      <div formArrayName="tags">
+        <label for="">Tags</label>
+        <ng-container
+          *ngFor="let tg of tagControl.controls; let i = index"
+          [formGroupName]="i"
+        >
+          <label>
+            <input
+              type="checkbox"
+              class="custom-control-input"
+              formControlName="value"
+            />#{{ tg.value.name }}</label
+          >
+        </ng-container>
+        <!--
+        <ng-container *ngFor="let tg of tag; let i = index" >
+          <label> <input
+          type="checkbox"
+          class="custom-control-input"
+          [formControlName]="i"
+        />#{{ tg.name }}</label>
+        </ng-container> -->
+      </div>
+      <div *ngIf="tags?.invalid">
+        <div *ngIf="tags?.errors?.['required']">
+          <span class="text-danger">Tag is required</span>
+        </div>
+      </div>
+    </div>
+
+    <div formArrayName="services">
+
+      <div *ngFor="let service of servicesControl.controls; let i = index" [formGroupName]="i">
+       <label *ngIf="index[i].id == i && index[i].value == true" >{{service.value.name}}</label>
+        <!-- <label>{{ tg.value.service_type }}</label> -->
+        <!-- <p>{{ tg.value.id }}</p> -->
+        <div formArrayName="service_type">
+        <ng-container *ngFor="let service_type_item of serviceTypeControl(i).controls; let j = index" [formGroupName]="j">
+             <label>
+              <input type="checkbox"
+              class="custom-control-input"
+              formControlName="value"
+               />
+              {{ service_type_item.value.type_name }}
+            </label>
+          </ng-container>
+          <div *ngIf="index[i].id == i && index[i].value == true">
+
+            <button class="btn btn-danger" type="button"  (click)="remove(i, service.value.id)">remove</button>
+          </div>
+
+      </div>
+      <div *ngIf="index[i].id == i && index[i].value == true">
+        <hr />
+
+      </div>
+      </div>
+
+      <!-- formControlName="value" <div *ngFor="let tg of servicesControl.controls; let i = index">
+        <label>{{ tg.value.name }}</label>
+        <p>{{tg.value[i].controls}}</p>formControlName="value"
+        <p>{{tg.value[i].name}}</p>
+        <ng-container
+          *ngFor="let val of tg.value; let j = index"
+          [formArrayName]="i"
+        >
+          <p>{{val.type_name}}</p>
+          <div [formGroupName]="j">
+            <p>{{val.service_type}}</p>
+            <div *ngFor="let v of val.value">
+               <p>{{v}}</p>
+            </div>
+            <label>
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                formControlName="value"
+              />
+              {{ val.type_name }}</label
+            >
+          </div>
+        </ng-container>
+        <hr />
+      </div> -->
+    </div>
+    <!-- <mat-progress-bar class="progress-bar" mode="determinate"
+    [value]="progress" *ngIf="progress">
+
+  </mat-progress-bar> -->
+
+    <!-- <button type="submit" [disabled]="!form.valid" class="btn btn-primary" >{{update ? "Update" : "Submit"}}</button>
+    <button type="reset" class="btn btn-danger">Clear</button> -->
+
+    <div class="example-button-row">
+      <button mat-raised-button class="mx-2" color="primary" [disabled]="!form.valid" type="submit">{{update ? "Update" : "Submit"}}</button>
+      <button mat-raised-button color="warn" type="reset">Clear</button>
+    </div>
+  </form>
+
+  <div *ngIf="fileUpload.status==='success'">
+    <img [src]="fileUpload.filePath" height="200px" />
+  </div>
+  <hr />
+  <div class="form-group">
+    <div *ngFor="let val of service_list; let i = index">
+      <label>{{ val.name }}</label>
+      <div *ngFor="let type of val.service_type; let j = index">
+        <!-- <p>{{val}}</p> -->
+        <label>
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            [value]="type.type_name"
+            [id]="type.id"
+            (change)="handleChange($event, val)"
+          />
+          {{ type.type_name }}</label
+        >
+      </div>
+      <button class="btn btn-primary"  (click)="addToForm(val); initialize()">Save</button>
+    </div>
+  </div>
+</div>

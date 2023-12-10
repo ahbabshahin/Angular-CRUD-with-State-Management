@@ -1,0 +1,20 @@
+<!-- <label for="">{{label}}</label>
+<select class="custom-select form-control"  [formControl]="control">
+  <option *ngFor="let cat of categorys" [value]="cat">{{cat}}</option>
+</select> -->
+
+<div class="row">
+<mat-form-field appearance="outline">
+  <mat-label>{{label}}</mat-label>
+  <mat-select  [formControl]="control">
+    <mat-option *ngFor="let cat of categorys" [value]="cat">{{cat}}</mat-option>
+  </mat-select>
+</mat-form-field>
+</div>
+<div *ngIf="validation?.invalid && (validation?.dirty || validation?.touched)">
+  <div *ngFor="let val of validationStructure; let i = index">
+    <div *ngIf="validation?.errors?.[val.type]">
+      <span class="text-danger">{{ val.message }}</span>
+    </div>
+  </div>
+</div>
